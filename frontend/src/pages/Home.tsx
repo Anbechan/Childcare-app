@@ -1,5 +1,5 @@
 import Card from "../components/NurseryCard";
-import type { Nursery } from "../date";
+import type { Nursery } from "../data";
 
 type Props = {
   nurseries: Nursery[];

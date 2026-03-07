@@ -2,7 +2,7 @@ import { useState } from "react";
 import BasicSection from "./BasicSection";
 import AccessSection from "./AccessSection";
 import TextAreaSection from "./TextAreaSection";
-import type { Nursery, NurseryType } from "../date";
+import type { Nursery, NurseryType } from "../data";
 
 type Props = {
   onSubmit: (nursery: Nursery) => void;

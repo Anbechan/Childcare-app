@@ -1,5 +1,4 @@
-import type { NurseryType } from "../date";
-
+import type { NurseryType } from "../data";
 
 type Props = {
   name: string;

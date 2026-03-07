@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
-import { type Nursery, nurseryDate } from "./date";
+import { type Nursery, nurseryDate } from "./data";
 import Add from "./pages/Add";
 
 const App = () => {
@@ -20,7 +20,13 @@ const App = () => {
   return (
     <>
       <Header onAdd={() => setPage("add")} />
-      {page === "home" && <Home nurseries={nurseries} goAdd={() => setPage("add")} goDetail={goDetail} />}
+      {page === "home" && (
+        <Home
+          nurseries={nurseries}
+          goAdd={() => setPage("add")}
+          goDetail={goDetail}
+        />
+      )}
       {page === "detail" && (
         <Detail
           selectedId={selectedId}

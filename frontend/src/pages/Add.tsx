@@ -1,4 +1,4 @@
-import type { Nursery } from "../date";
+import type { Nursery } from "../data";
 import InputCard from "../components/InputCard";
 
 type Props = {

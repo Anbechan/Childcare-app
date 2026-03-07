@@ -1,4 +1,4 @@
-import type { Nursery } from "../date";
+import type { Nursery } from "../data";
 
 type Props = {
   nurseries: Nursery[];
@@ -66,9 +66,7 @@ const Detail = ({ nurseries, selectedId, goHome }: Props) => {
               d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
             />
           </svg>
-          <p>
-            {nursery.time}
-          </p>
+          <p>{nursery.time}</p>
         </div>
         <p className="">＊{nursery.holidays}</p>
         <h5 className="font-bold my-2">【 電話番号・メールアドレス 】</h5>
