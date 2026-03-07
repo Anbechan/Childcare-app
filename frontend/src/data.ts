@@ -51,6 +51,6 @@ export const nurseryDate: Nursery[] = [
     email: "himawari_hoikuen@gamail.com",
     goodPoints: ["園庭が広い", "先生が丁寧に子どもを見てくれる"],
     badPoints: ["給食の種類が少ない"],
-    memo: ["延長保育は１９：００〜で捕食が出る"],
+    memo: ["延長保育は１９：００〜で補食が出る"],
   },
 ];

@@ -36,7 +36,7 @@ const Detail = ({ nurseries, selectedId, goHome }: Props) => {
 
       <div className="flex gap-2 text-xl mt-3">
         <h3 className="font-bold">{nursery.name}</h3>
-        <p>{nursery.rating}</p>
+        <p>★{nursery.rating}</p>
       </div>
       <div className="flex items-center">
         <span className="">{nursery.distance}</span>
