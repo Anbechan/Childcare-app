@@ -21,8 +21,8 @@ const InputCard = ({ onSubmit, goHome }: Props) => {
   const [holidays, setHolidays] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [goodPoints, setGoodPoints] = useState("");
-  const [badPoints, setBadPoints] = useState("");
+  const [good_points, setGoodPoints] = useState("");
+  const [bad_points, setBadPoints] = useState("");
   const [memo, setMemo] = useState("");
 
   const handleSubmit = () => {
@@ -39,8 +39,8 @@ const InputCard = ({ onSubmit, goHome }: Props) => {
       holidays,
       phone,
       email,
-      goodPoints: goodPoints ? goodPoints.split("\n") : [],
-      badPoints: badPoints ? badPoints.split("\n") : [],
+      good_points: good_points ? good_points.split("\n") : [],
+      bad_points: bad_points ? bad_points.split("\n") : [],
       memo: memo ? memo.split("\n") : [],
     };
     onSubmit(newNursery);
@@ -80,12 +80,12 @@ const InputCard = ({ onSubmit, goHome }: Props) => {
 
       <TextAreaSection
         title="良かった点"
-        value={goodPoints}
+        value={good_points}
         setValue={setGoodPoints}
       />
       <TextAreaSection
         title="気になった点"
-        value={badPoints}
+        value={bad_points}
         setValue={setBadPoints}
       />
       <TextAreaSection title="メモ" value={memo} setValue={setMemo} />

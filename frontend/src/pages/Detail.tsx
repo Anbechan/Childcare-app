@@ -1,15 +1,34 @@
 import type { Nursery } from "../data";
+import { getNurseryDetail } from "../services/api";
+import { useEffect, useState } from "react";
+import { deleteNursery } from "../services/api";
 
 type Props = {
-  nurseries: Nursery[];
   selectedId: number;
   goHome: () => void;
 };
 
-const Detail = ({ nurseries, selectedId, goHome }: Props) => {
-  const nursery = nurseries.find((n) => n.id === selectedId);
+const Detail = ({ selectedId, goHome }: Props) => {
+  const [nursery, setNursery] = useState<Nursery | null>(null);
+
+  useEffect(() => {
+    if (!selectedId) return;
+    const loadDetail = async () => {
+      const data = await getNurseryDetail(selectedId);
+      setNursery(data);
+    };
+    loadDetail();
+  }, [selectedId]);
 
   if (!nursery) return <p>保育園が見つかりません</p>;
+
+  const handleDelete = async () => {
+    if (!nursery) return;
+    if (confirm(`${nursery.name} を削除しますか？`)) {
+      await deleteNursery(nursery.id);
+      goHome(); // 削除後に一覧画面へ戻る
+    }
+  };
 
   return (
     <main className="text-yellow-900 p-4">
@@ -105,13 +124,19 @@ const Detail = ({ nurseries, selectedId, goHome }: Props) => {
           <p>{nursery.email}</p>
         </div>
         <h4 className="text-white bg-yellow-900 my-2 pl-2">良かった点</h4>
-        <p>{nursery.goodPoints}</p>
+        <p>{nursery.good_points}</p>
         <h4 className="text-white bg-yellow-900 my-2 pl-2">気になった点</h4>
-        <p>{nursery.badPoints}</p>
+        <p>{nursery.bad_points}</p>
         <h4 className="text-white bg-yellow-900 my-2 pl-2">メモ</h4>
         <p>{nursery.memo}</p>
         <div className="card-actions mt-3">
           <button className="btn btn-outline text-yellow-900">編集</button>
+          <button
+            onClick={handleDelete}
+            className="btn btn-outline bg-yellow-900 text-white"
+          >
+            削除
+          </button>
         </div>
       </div>
     </main>

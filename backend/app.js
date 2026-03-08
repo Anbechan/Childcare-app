@@ -20,25 +20,22 @@ app.get("/api/nurseries/grouped", (req, res) => {
   const sql = "SELECT * FROM nurseries";
 
   connection.query(sql, (err, results) => {
-    if (err) {
-      return res.status(500).json(err);
-    }
+    if (err) return res.status(500).json(err);
 
-    const parsed = results.map((n) => ({
-      ...n,
-      goodPoints: JSON.parse(n.good_points || "[]"),
-      badPoints: JSON.parse(n.bad_points || "[]"),
-      memo: JSON.parse(n.memo || "[]"),
-    }));
+    const visited = results.filter((n) => n.visited === 1);
+    const unvisited = results.filter((n) => n.visited === 0);
 
-    const grouped = {
-      visited: parsed.filter((n) => n.visited),
-      notVisited: parsed.filter((n) => !n.visited),
-    };
-
-    res.json(grouped);
+    res.json({ visited, unvisited });
   });
 });
+
+const safeParse = (value) => {
+  try {
+    return value ? JSON.parse(value) : [];
+  } catch (e) {
+    return [];
+  }
+};
 
 // 保育園詳細表示
 app.get("/api/nurseries/:id", (req, res) => {
@@ -51,17 +48,18 @@ app.get("/api/nurseries/:id", (req, res) => {
       return res.status(500).json(err);
     }
 
-    if (results.length === 0) {
-      return res.status(404).json({ message: "not found" });
+    if (!results || results.length === 0) {
+      return res.status(404).json({ message: "Nursery not found" });
     }
 
     const n = results[0];
 
     const nursery = {
       ...n,
-      goodPoints: JSON.parse(n.good_points || "[]"),
-      badPoints: JSON.parse(n.bad_points || "[]"),
-      memo: JSON.parse(n.memo || "[]"),
+      visited: n.visited === 1, // 数値を boolean に変換
+      good_points: safeParse(n.good_points),
+      bad_points: safeParse(n.bad_points),
+      memo: safeParse(n.memo),
     };
 
     res.json(nursery);
@@ -98,7 +96,7 @@ app.post("/api/nurseries", (req, res) => {
       data.name,
       data.distance,
       data.type,
-      data.visited,
+      data.visited ? 1 : 0,
       data.rating,
       data.post,
       data.address,
@@ -106,8 +104,8 @@ app.post("/api/nurseries", (req, res) => {
       data.holidays,
       data.phone,
       data.email,
-      JSON.stringify(data.goodPoints || []),
-      JSON.stringify(data.badPoints || []),
+      JSON.stringify(data.good_points || []),
+      JSON.stringify(data.bad_points || []),
       JSON.stringify(data.memo || []),
     ],
     (err, result) => {
@@ -121,6 +119,21 @@ app.post("/api/nurseries", (req, res) => {
       });
     },
   );
+});
+
+// 保育園削除
+app.delete("/api/nurseries/:id", (req, res) => {
+  const id = req.params.id;
+
+  const sql = "DELETE FROM nurseries WHERE id = ?";
+
+  connection.query(sql, [id], (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (result.affectedRows === 0)
+      return res.status(404).json({ message: "Nursery not found" });
+
+    res.json({ message: "deleted", id: id });
+  });
 });
 
 // サーバーの起動

@@ -1,15 +1,28 @@
 import Card from "../components/NurseryCard";
 import type { Nursery } from "../data";
+import { getNurseries } from "../services/api";
+import { useEffect, useState } from "react";
 
 type Props = {
-  nurseries: Nursery[];
   goDetail: (id: number) => void;
   goAdd: () => void;
 };
 
-const Home = ({ nurseries, goDetail, goAdd }: Props) => {
-  const unvisited = nurseries.filter((n) => !n.visited);
-  const visited = nurseries.filter((n) => n.visited);
+const Home = ({ goDetail }: Props) => {
+  const [visited, setVisited] = useState<Nursery[]>([]);
+  const [unvisited, setUnvisited] = useState<Nursery[]>([]);
+
+   // APIからデータ取得
+  useEffect(() => {
+    const loadData = async () => {
+      const data = await getNurseries();
+      setVisited(data.visited);
+      setUnvisited(data.unvisited);
+    };
+    loadData();
+  }, []);
+
+
   return (
     <main className="p-3">
       {/* 未見学 */}

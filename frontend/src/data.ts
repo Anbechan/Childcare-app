@@ -13,8 +13,8 @@ export type Nursery = {
   holidays: string;
   phone: string;
   email: string;
-  goodPoints?: string[];
-  badPoints?: string[];
+  good_points?: string[];
+  bad_points?: string[];
   memo?: string[];
 };
 
@@ -32,8 +32,8 @@ export const nurseryDate: Nursery[] = [
     holidays: "日曜・祝日・年末年始",
     phone: "03-9876-5432",
     email: "himawari_hoikuen@gamail.com",
-    goodPoints: [""],
-    badPoints: [""],
+    good_points: [""],
+    bad_points: [""],
     memo: [""],
   },
   {
@@ -49,8 +49,8 @@ export const nurseryDate: Nursery[] = [
     holidays: "日曜・祝日・年末年始",
     phone: "03-9876-5432",
     email: "himawari_hoikuen@gamail.com",
-    goodPoints: ["園庭が広い", "先生が丁寧に子どもを見てくれる"],
-    badPoints: ["給食の種類が少ない"],
+    good_points: ["園庭が広い", "先生が丁寧に子どもを見てくれる"],
+    bad_points: ["給食の種類が少ない"],
     memo: ["延長保育は１９：００〜で補食が出る"],
   },
 ];
