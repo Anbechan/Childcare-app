@@ -99,7 +99,7 @@ const InputCard = ({ onSubmit, goHome }: Props) => {
         </button>
 
         <button
-          onClick={goHome}
+          onClick={() => goHome?.()}
           className="btn btn-outline text-white bg-yellow-600"
         >
           キャンセル

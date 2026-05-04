@@ -15,6 +15,7 @@ const Add = ({ addNursery, goHome }: Props) => {
           addNursery(date);
           goHome();
         }}
+        goHome={goHome}
       />
     </main>
   );
