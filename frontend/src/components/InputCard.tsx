@@ -97,6 +97,13 @@ const InputCard = ({ onSubmit, goHome }: Props) => {
         >
           追加
         </button>
+
+        <button
+          onClick={goHome}
+          className="btn btn-outline text-white bg-yellow-600"
+        >
+          キャンセル
+        </button>
       </div>
     </>
   );
